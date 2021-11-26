@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.views import generic
 from django.utils.safestring import mark_safe
+from django.contrib import auth
+from django.contrib.auth.hashers import make_password,check_password
+from django.contrib.auth.models import User
 
 from bokeh.plotting import figure, ColumnDataSource
 from bokeh.embed import components
@@ -10,7 +13,7 @@ from bokeh.models.formatters import NumeralTickFormatter
 
 from .utils import *
 
-def plot_selected(selected_symbol):
+def plot_dashboard(selected_symbol):
     """
     Return the bokeh plot of selected symbol.
     """
@@ -147,10 +150,10 @@ def info_plot_2(selected_symbol):
 
 def dashboard(request):
     
-    selected_symbol='AAPL'
-    script, div, last_high, last_close=plot_selected(selected_symbol)
+    selected_symbol='SPY'
+    script, div, last_high, last_close=plot_dashboard(selected_symbol)
 
-    keyword='AAPL AND stock'
+    keyword='stock'
     news_title_1,news_title_2,news_title_3,news_content_1,news_content_2,news_content_3=dashboard_news(keyword)
 
     context={

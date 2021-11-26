@@ -27,9 +27,8 @@
 <body>
     <div class="Header">
         <header>FinMaster</header>
-        <i class="far fa-bell" id="bell-icon"></i>
         <i class="fas fa-cog" id="cog-icon"></i>
-        <i class="fas fa-user-circle" id="user-icon"></i>
+        <a href="{% url 'login' %}"><i class="fas fa-user-circle" id="user-icon"></i></a>
     </div>
 
     <div class='root'>
@@ -80,7 +79,7 @@
         <div class="BottomCards">
             <!--Index Revenue-->
             <div class='IndexRevenue'>
-                <p class='ClassTitle'>Selected Index Revenue</p>
+                <p class='ClassTitle'>S&P Daily Quotes</p>
                 <div class='Revenue'>
                     <p>{{selected_symbol}}</p>
                     <!--Historical price plot-->
