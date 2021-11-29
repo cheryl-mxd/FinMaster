@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from django.utils.safestring import mark_safe
 from django.contrib import auth
@@ -253,7 +253,9 @@ def info_plot_3(selected_symbol):
 
 
 def dashboard(request):
-
+    if not request.session.get('is_login', None):
+        return redirect('/login/')
+    
     selected_symbol = 'SPY'
     script, div, last_high, last_close = plot_dashboard(selected_symbol)
 
@@ -268,6 +270,9 @@ def dashboard(request):
 
 
 def info(request):
+    if not request.session.get('is_login', None):
+        return redirect('/login/')
+    
     keyword = 'AAPL AND stock'
 
     selected_symbol = 'AAPL'
