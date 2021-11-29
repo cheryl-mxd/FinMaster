@@ -74,7 +74,7 @@ def logout(request):
     if not request.session.get('is_login', None):
         return redirect('/login/')
     request.session.flush()
-    return redirect('/')
+    return redirect('/login/')
 
 
 def hash_code(s, salt='finmaster'):

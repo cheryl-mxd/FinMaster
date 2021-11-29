@@ -97,5 +97,5 @@ def sidebar_calendar():
 def sidebar_today_tasks():
     d = datetime.today()
     tasks = Task.objects.filter(
-        due__year=d.year, due__month=d.month, due__day=d.day)
+        due__year=d.year, due__month=d.month, due__day=d.day, complete_status=False)
     return tasks

@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views import generic
 from django.utils.safestring import mark_safe
 from django.contrib import auth
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import User
+from django.urls import reverse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from bokeh.plotting import figure, ColumnDataSource
 from bokeh.embed import components
@@ -12,6 +14,7 @@ from bokeh.palettes import Category20
 from bokeh.models.formatters import NumeralTickFormatter
 
 from .utils import *
+from task.models import *
 
 
 def plot_dashboard(selected_symbol):
@@ -252,9 +255,9 @@ def info_plot_3(selected_symbol):
     return script, div
 
 
-def dashboard(request):
-    if not request.session.get('is_login', None):
-        return redirect('/login/')
+def dashboard(request, task_id=None):
+    """if not request.session.get('is_login', None):
+        return redirect('/login/')"""
     
     selected_symbol = 'SPY'
     script, div, last_high, last_close = plot_dashboard(selected_symbol)
@@ -266,12 +269,24 @@ def dashboard(request):
     month = this_month()
     calendar = mark_safe(small_calendar())
 
+    # create new issue
+    instance = Task()
+    if task_id:
+        instance = get_object_or_404(Task, pk=task_id)
+    else:
+        instance = Task()
+
+    form = TaskForm(request.POST or None, instance=instance)
+    if request.POST and form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('calendar'))
+
     return render(request, 'Dashboard.html', locals())
 
 
 def info(request):
-    if not request.session.get('is_login', None):
-        return redirect('/login/')
+    """if not request.session.get('is_login', None):
+        return redirect('/login/')"""
     
     keyword = 'AAPL AND stock'
 
