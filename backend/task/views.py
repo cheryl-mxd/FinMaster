@@ -72,8 +72,11 @@ def task(request, task_id=None):
         instance = Task()
 
     form = TaskForm(request.POST or None, instance=instance)
-    if request.POST and form.is_valid():
+    if request.POST and 'submit' in request.POST and form.is_valid():
         form.save()
+        return HttpResponseRedirect(reverse('calendar'))
+    elif request.POST and 'delete' in request.POST and form.is_valid():
+        Task.objects.filter(pk=task_id).delete()
         return HttpResponseRedirect(reverse('calendar'))
     return render(request, 'Task.html', {'form': form})
 
