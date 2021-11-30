@@ -85,11 +85,12 @@
                     </table>
                 </form>
             </div>
-            <!--Small Calendar-->                        
+            <!--Delay Alert-->                        
             <div class='Card'>
                 <a class='ClassTitle' href="{% url 'calendar' %}">{{month}}</a>
-                <div class='SmallCalendar'>
-                    {{calendar}}
+                <div class='Alert'>
+                    <P class='DateNum'>{{ today }}</P>
+                    <P class='Alert_info'>{{ delaynum }}</P>
                 </div>
             </div>
         </div>

@@ -274,7 +274,6 @@ def dashboard(request, task_id=None):
         return redirect('/login/')"""
 
     unfinished, finished = progress_count()
-    print(unfinished, finished)
 
     selected_symbol = 'SPY'
     script, div, last_high, last_close = plot_dashboard(selected_symbol)
@@ -283,9 +282,16 @@ def dashboard(request, task_id=None):
     news_title_1, news_title_2, news_title_3, news_content_1, news_content_2, news_content_3, news_url_1, news_url_2, news_url_3 = dashboard_news(
         keyword)
 
-    start_time = this_monday()
+    start_time = datetime.today().strftime('%Y-%m-%d')
     month = this_month()
-    calendar = mark_safe(small_calendar())
+
+    today = datetime.today().day
+
+    Delaytask = Task.objects.filter(due__lte=datetime.now(), complete_status=False)
+    if len(Delaytask) > 0:
+        delaynum = 'Warning!! '+str(len(Delaytask))+' Delayed task!'
+    else:
+        delaynum = ' Congratulation!! All Task finished on time!!'
 
     # create new issue
     instance = Task()
@@ -299,8 +305,7 @@ def dashboard(request, task_id=None):
         form.save()
         return HttpResponseRedirect(reverse('calendar'))
 
-    tasks = Task.objects.filter(due__lte=datetime.now(
-    )+timedelta(days=1), complete_status=False).order_by('due').reverse()
+    tasks = Task.objects.filter(due__lte=datetime.now()+timedelta(days=1), complete_status=False).order_by('due').reverse()
     if len(tasks) >= 3:
         lastest_task1 = tasks[0]
         title1 = lastest_task1.title

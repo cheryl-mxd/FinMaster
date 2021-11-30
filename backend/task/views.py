@@ -6,7 +6,7 @@ from django.utils.safestring import mark_safe
 from django.urls import reverse
 
 from .models import *
-from backend.utils import this_month, this_year, small_calendar
+from backend.utils import this_month, this_year
 from .utils import Calendar
 
 from datetime import date, datetime, time, timedelta
