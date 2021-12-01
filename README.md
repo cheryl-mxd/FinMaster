@@ -1,28 +1,29 @@
 # FinMaster
- Financial Time Management Tool
 
-## 1. Overall
-Currently available task planners, like kanban are for the general population, while we would like to develop a task planner specially for investors in the financial industry. It is convenient both for individual and group teams to set tasks, view latest financial news, allocate projects, compare performance, etc.
+Financial Time Management Tool
 
-## 2. Midterm Progress
+## Author
 
-We refined the design of the web functionality (attached in the appendix), specifying the future  functions to be completed. 
+This project is built and maintained by @cheryl-mxd and @Yeseniazhuo. Private repository addresses are https://github.com/cheryl-mxd/FinMaster.git and https://github.com/Yeseniazhuo/FinMaster.git. Please check both repositories for commits' details and the final versions of the two repositories are exactly the same. 
 
-Currently, we complete all static user interfaces with html and CSS, and we have also reserved excuses for back-end interaction. We subsequently intend to complete the backend programming using python, django  framework, and we searched for some date libraries that would allow us to modify the calendar template. Besides, we also find out some available API for the news and securities information.
+The pull requests between repositories are not properly executed because of the security alert brought by the private key of _newsapi_.
 
-## Appendix: List of features
+## Execute Instructions
 
-### A. Task Progress Statisitc
-Users can see the progress of their tasks on the dashboard to optimize their task settings.
+Please check `requirements.txt`  for project dependencies.
 
-### B. Task planner and calendar reminder
-Users can set daily recurring tasks or set reminders both on the dashborad and on the calendar. They can either quickly create daily tasks commonly used in different financial sectors (i.e., research, sales and trading) from the provided templates or customize personal tasks. Tags and participants can be added to each task.
+First, git clone the project repository.
 
-### C. Securities information 
-Once users have setted the securities or industry they are interest in, we will get security information from financial API, then show those info in our planner, saving customers some time. 
+```shell
+git clone https://github.com/Yeseniazhuo/FinMaster.git
+```
 
-### D. Financial event reminder
-Once users have set their area of interest or financial sector, we will crawl related news released in some mainstream financial websites for their reference. They can also choose to set alerts for future events mentioned in the news. It can shorten the users’ search time.
+Second, run the server in the `FinMaster/backend` folder (remember to change your localhost url in `/backend/backend/settings.py` to `INTERNAL_IPS = [ "127.0.0.1", ]` ).
 
+```shell
+python manage.py runserver
+```
 
-## 
+Then you should be able to access the website at `127.0.0.1:8000/`.
+
+<u>Warning: all functions are only available to logged-in users. You can easily create a new user and enjoy your journey with **FinMaster**!</u>
